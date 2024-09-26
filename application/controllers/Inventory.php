@@ -101,6 +101,7 @@ class Inventory extends MY_Controller {
             'barcode' => '',
         );
         
+        $main_inv = ''; //this is to not create sub inventory
         if ($main_inv == null || $main_inv == '') {
             $insert_data['cat_id'] = $cat;
             $insert_data['sub_inv_flag'] = 0;

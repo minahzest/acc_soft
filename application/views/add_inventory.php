@@ -82,6 +82,33 @@
                   
                   <form id="add-inventory">
                     <div class="form-group col-md-6">
+                      <div class="row" id="subInvBox">
+                        <div class="col-sm-12">
+                          <label for="form-control-2" class="control-label input-label">Main Inventory</label>
+                          <div class="input-group">
+                            <select class="form-control select2-supplier-container" onchange="getInvDetails();" data-plugin="select2" name="InvMain" id="InvMain" style="width: 100%">
+                              <option></option>
+                              <option value="0">Unknown</option>
+                              <?php
+                                foreach ($inv as $value) {
+                              ?>
+                              <option value="<?=$value->inv_id?>"><?=$value->inv_name?></option>
+                              <?php
+                                }
+                              ?>
+                            </select>
+
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="form-control-3" class="control-label input-label" style="padding-top: 12px;"><i class="zmdi zmdi-alert-circle zmdi-hc-fw" data-toggle="tooltip" data-placement="top" title="select the product first before enter the product details"></i>
+                              This field is applicable only when you are attempting to create sub product
+                            </label><br>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
                       <label for="form-control-1" class="control-label input-label">Inventory</label>
                         <div class="input-group autocomplete menu-bar-colr">
                           <span class="input-group-addon">
@@ -143,32 +170,6 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-6">
-                      <div class="row" id="subInvBox">
-                        <div class="col-sm-12">
-                          <label for="form-control-2" class="control-label input-label">Main Inventory</label>
-                          <div class="input-group">
-                            <select class="form-control select2-supplier-container" onchange="getInvDetails();" data-plugin="select2" name="InvMain" id="InvMain" style="width: 100%">
-                              <option></option>
-                              <option value="0">Unknown</option>
-                              <?php
-                                foreach ($inv as $value) {
-                              ?>
-                              <option value="<?=$value->inv_id?>"><?=$value->inv_name?></option>
-                              <?php
-                                }
-                              ?>
-                            </select>
-
-                          </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <label for="form-control-3" class="control-label input-label" style="padding-top: 12px;"><i class="zmdi zmdi-alert-circle zmdi-hc-fw" data-toggle="tooltip" data-placement="top" title="select the product first before enter the product details"></i>
-                              This field is applicable only when you are attempting to create sub product
-                            </label><br>
-                        </div>
-                      </div>
-                    </div>
 
                     <div class="form-group col-md-6">
                       <div class="row">
@@ -616,6 +617,7 @@
         e.preventDefault();
         run_waitMe('#create-div');
         // alert($('#add-inventory').serialize());
+        // $('#InvMain').val('');
         $.ajax({
           type: "POST",
           url: "<?=base_url()?>addInventory",
